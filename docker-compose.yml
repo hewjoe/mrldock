@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mrl:
+    image: mymrl:20230916-3
+    container_name: myrobotlab
+    privileged: true
+    restart: always
+    environment:
+      - DISPLAY=:0
+      - ENABLE_VNC=true
+    volumes:
+      - ./settings/:/opt/myrobotlab/data/config/
+    ports:
+      - 8888:8888 # WebUI
+      - 5900:5900 # WebUI
+      - 6080:6080 # WebUI
+      - 25333:25333 # Py4J port
+    networks:
+      - mrl-net # All of the containers will join the same Docker bridge network
+
+networks:
+  mrl-net:
